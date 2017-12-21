@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Spotify Shortkeys Options</title>
+    <link rel="stylesheet" href="options.css">
+</head>
+<body>
+    <div id="main">
+        <div id="first">
+            <p style="text-align: center;">
+                <a href="https://addons.mozilla.org/en-US/firefox/addon/spotify-hotkeys/">Add a Review</a> |
+                <a href="https://github.com/TsunDoge/spotify-hotkeys-firefox/wiki">Documentation</a> |
+                <a href="https://github.com/TsunDoge/spotify-hotkeys-firefox/issues">Support</a> |
+                <a href="https://github.com/TsunDoge/spotify-hotkeys-firefox">Code</a> |
+                <a href="https://addons.mozilla.org/en-US/firefox/addon/spotify-hotkeys/">Webstore</a>
+            </p>
+            <form>
+                <h1>Spotify Hotkeys Configuration</h1>
+                <h4>This is an unstable feature, proceed with caution.</h4>
+                <label for="play-pause">Play-Pause</label>
+                <input type="text" id="play-pause" required>
+    
+                <label for="next">Next</label>
+                <input type="text" id="next" required>
+    
+                <label for="previous">Previous</label>
+                <input type="text" id="previous" required>
+    
+                <label for="shuffle">Shuffle</label>
+                <input type="text" id="shuffle">
+    
+                <label for="repeat">Repeat</label>
+                <input type="text" id="repeat">
+                <input type="submit" value="Submit">
+                <input type="reset" value="Restore default shortcuts">
+            </form>
+        </div>
+    </div>
+    <script src="../scripts/options.js"></script>
+    <script src="../scripts/mousetrap.min.js"></script>
+</body>
+</html>

@@ -1,7 +1,9 @@
 /**
- * Fired when a registered command is activated using a keyboard shortcut.
+ * Execute the following action
+ * @param {string} action - action to be executed
  */
-browser.commands.onCommand.addListener((command) => {
+function handleAction(action) {
+    console.log(action);
     browser.tabs.query({ url: 'https://*.spotify.com/*' }, (tabs) => {
 
         // Open a spotify tab if one does not exist yet.
@@ -16,7 +18,7 @@ browser.commands.onCommand.addListener((command) => {
                 code = "document.getElementById('app-player').contentDocument.getElementById('" + command + "').click()";
             }
             else if (tab.url.startsWith('https://open.spotify.com')) {
-                switch (command) {
+                switch (action) {
                     case "play-pause": 
                         code = '(document.querySelector(".spoticon-play-16") || document.querySelector(".spoticon-pause-16")).click()'; 
                         break;
@@ -39,4 +41,30 @@ browser.commands.onCommand.addListener((command) => {
             }
         }
     });
+}
+
+
+/**
+ * Gets custom shortcuts from the local storage. If any is set add listener to default ones.
+ */
+browser.storage.local.get("SpotifyShortcuts").then(result => {
+    let shortcuts = result.SpotifyShortcuts ? result.SpotifyShortcuts : null;
+    if (!shortcuts) {
+        browser.commands.onCommand.addListener((command) => {
+            handleAction(command);
+        });
+    }
+});
+
+/**
+ * 
+ */
+browser.runtime.onMessage.addListener(function (request, sender, sendResponse) {
+    const action = request.action;
+    if (action === "getShortcuts") {
+        return browser.storage.local.get("SpotifyShortcuts").then(result => {
+            return result.SpotifyShortcuts ? result.SpotifyShortcuts : null; 
+        });
+    }
+    handleAction(action);
 });

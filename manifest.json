@@ -3,15 +3,24 @@
     "description": "Keyboard shortcuts to play, pause, next and previous tracks in Spotify Web Player.",
     "manifest_version": 2,
     "author": "TsunDoge",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "homepage_url": "https://github.com/TsunDoge/spotify-hotkeys-firefox",
+    "browser_action": {
+        "default_icon": "icons/logo-32.png",
+        "theme_icons": [{
+            "light": "icons/logo-32-light.png",
+            "dark": "icons/logo-32.png",
+            "size": 32
+        }],
+        "default_title": "Spotify"
+    },
     "icons": {
         "64": "icons/logo-64.png"
     },
-    "background": {
-        "scripts": [ "background.js" ]
-    },
 
+    "options_ui": {
+        "page": "views/options.html"
+    },
     "commands": {
         "play-pause": {
             "suggested_key": {
@@ -38,14 +47,14 @@
             "description": "Repeat"
         }
     },
-    "permissions": [ "https://open.spotify.com/*", "https://play.spotify.com/*", "tabs" ],
-    "browser_action": {
-        "default_icon": "icons/logo-32.png",
-        "theme_icons": [{
-            "light": "icons/logo-32-light.png",
-            "dark": "icons/logo-32.png",
-            "size": 32
-        }],
-        "default_title": "Spotify"
-    }
+    "background": {
+        "scripts": ["scripts/background.js"]
+    },
+    "content_scripts": [{
+        "matches": ["<all_urls>"],
+        "js": ["scripts/mousetrap.min.js", "scripts/content-script.js"],
+        "run_at": "document_end",
+        "match_about_blank": true
+    }],
+    "permissions": ["https://open.spotify.com/*", "https://play.spotify.com/*", "tabs", "storage", "<all_urls>"]
 }
